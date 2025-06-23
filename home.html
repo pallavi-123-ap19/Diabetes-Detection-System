@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Early Diabetes Detection</title>
+    <link rel="stylesheet" type="text/css" href="static/style.css" />
+    <style>
+        /* Add some basic styling for better visibility */
+        .question {
+            display: none; /* Hide all questions initially */
+        }
+        .active {
+            display: block; /* Show only the active question */
+        }
+        .input-container {
+            display: flex; /* Align input and button side by side */
+            align-items: center; /* Vertically align the button */
+            gap: 10px; /* Space between input and button */
+            margin-bottom: 20px;
+        }
+        input[type="number"], select {
+            flex: 1; /* Make input take up available space */
+            padding: 8px;
+            font-size: 1em;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50; /* Green background */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+    </style>
+</head>
+<body>
+    <header class="topic">
+        <h1>Diabetes Detection System</h1>
+    </header>
+    <main>
+        <section>
+            <h3>Let's check whether you would have <a href="https://www.diabetes.co.uk/" target="_blank">diabetes</a>. &#128522</h3>
+            <div class="gallery">
+                <img src="https://images.pexels.com/photos/6942015/pexels-photo-6942015.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Blood Sugar Meter and Medication on the Blue Background" loading="lazy"/>
+                <img src="https://images.pexels.com/photos/5469158/pexels-photo-5469158.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Woman in White Shirt Eating Candies" loading="lazy"/>
+                <img src="https://images.pexels.com/photos/5469027/pexels-photo-5469027.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="A Glucometer Surrounded by Colorful Candies" loading="lazy"/>
+            </div>
+        </section>
+        <section>
+            <form action="/result" method="POST" id="diabetes-form">
+                <fieldset>
+                    <legend>Please answer the following questions.</legend>
+                    
+                    <!-- Input 1 -->
+                    <div class="question active" id="q1">
+                        <p> What is your age? </p>
+                        <div class="input-container">
+                            <input type="number" placeholder="Enter your age" name="num__age" required>
+                            <button type="button" onclick="nextQuestion(1)">Next</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Input 2 -->
+                    <div class="question" id="q2">
+                        <p>Select your gender.</p>
+                        <div class="input-container">
+                            <input type="radio" id="Female" name="cat__gender" value="Female" required>
+                            <label for="Female">Female</label>
+                            <input type="radio" id="Male" name="cat__gender" value="Male" required>
+                            <label for="Male">Male</label>
+                            <button type="button" onclick="nextQuestion(2)">Next</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Input 3 -->
+                    <div class="question" id="q3">
+                        <p>Do you have <a href="https://www.diabetes.co.uk/symptoms/polyuria.html" target="_blank">polyuria</a>?</p>
+                        <div class="input-container">
+                            <select required name="cat__polyuria">
+                                <option value="" disabled selected>-- select an option --</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                            <button type="button" onclick="nextQuestion(3)">Next</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Input 4 -->
+                    <div class="question" id="q4">
+                        <p>Do you have <a href="https://my.clevelandclinic.org/health/symptoms/24050-polydipsia#:~:text=Polydipsia%20is%20the%20medical%20definition,may%20go%20along%20with%20it." target="_blank">polydipsia (excessive thirst)</a>?</p>
+                        <div class="input-container">
+                            <select required name="cat__polydipsia">
+                                <option value="" disabled selected>-- select an option --</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                            <button type="button" onclick="nextQuestion(4)">Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Input 5 -->
+                    <div class="question" id="q5">
+                        <p>Did you suffer from sudden weight loss?</p>
+                        <div class="input-container">
+                            <select required name="cat__sudden_weight_loss">
+                                <option value="" disabled selected>-- select an option --</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                            <button type="button" onclick="nextQuestion(5)">Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Input 6 -->
+                    <div class="question" id="q6">
+                        <p>Did you feel weak recently?</p>
+                        <div class="input-container">
+                            <select required name="cat__weakness">
+                                <option value="" disabled selected>-- select an option --</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                            <button type="button" onclick="nextQuestion(6)">Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Input 7 -->
+                    <div class="question" id="q7">
+                        <p>Did you experience polyphagia (excessive hunger)?</p>
+                        <div class="input-container">
+                            <select required name="cat__polyphagia">
+                                <option value="" disabled selected>-- select an option --</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                            <button type="button" onclick="nextQuestion(7)">Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Input 8 -->
+                    <div class="question" id="q8">
+                        <p>Did you have genital thrush?</p>
+                        <div class="input-container">
+                            <select required name="cat__genital_thrush">
+                                <option value="" disabled selected>-- select an option --</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                            <button type="button" onclick="nextQuestion(8)">Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Input 9 -->
+                    <div class="question" id="q9">
+                        <p>Did you experience visual blurring?</p>
+                        <div class="input-container">
+                            <select required name="cat__visual_blurring">
+                                <option value="" disabled selected>-- select an option --</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                            <button type="button" onclick="nextQuestion(9)">Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Input 10 -->
+                    <div class="question" id="q10">
+                        <p>Did you have itching?</p>
+                        <div class="input-container">
+                            <select required name="cat__itching">
+                                <option value="" disabled selected>-- select an option --</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                            <button type="button" onclick="nextQuestion(10)">Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Input 11 -->
+                    <div class="question" id="q11">
+                        <p>Did you feel irritable?</p>
+                        <div class="input-container">
+                            <select required name="cat__irritability">
+                                <option value="" disabled selected>-- select an option --</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                            <button type="button" onclick="nextQuestion(11)">Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Input 12 -->
+                    <div class="question" id="q12">
+                        <p>Did you experience delayed healing?</p>
+                        <div class="input-container">
+                            <select required name="cat__delayed_healing">
+                                <option value="" disabled selected>-- select an option --</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                            <button type="button" onclick="nextQuestion(12)">Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Input 13 -->
+                    <div class="question" id="q13">
+                        <p>Did you experience partial paresis?</p>
+                        <div class="input-container">
+                            <select required name="cat__partial_paresis">
+                                <option value="" disabled selected>-- select an option --</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                            <button type="button" onclick="nextQuestion(13)">Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Input 14 -->
+                    <div class="question" id="q14">
+                        <p>Did you feel muscle stiffness?</p>
+                        <div class="input-container">
+                            <select required name="cat__muscle_stiffness">
+                                <option value="" disabled selected>-- select an option --</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                            <button type="button" onclick="nextQuestion(14)">Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Input 15 -->
+                    <div class="question" id="q15">
+                        <p>Did you feel any hair loss?</p>
+                        <div class="input-container">
+                            <select required name="cat__alopecia">
+                                <option value="" disabled selected>-- select an option --</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                            <button type="button" onclick="nextQuestion(15)">Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Input 16 -->
+                    <div class="question" id="q16">
+                        <p>Did you feel any obesity symptoms?</p>
+                        <div class="input-container">
+                            <select required name="cat__obesity">
+                                <option value="" disabled selected>-- select an option --</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                            <button type="submit">Submit</button>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>Created by Goodfellas</p>
+    </footer>
+    <script>
+        let currentQuestion = 0;
+
+        function nextQuestion(questionNumber) {
+            // Hide the current question
+            document.getElementById(`q${questionNumber}`).classList.remove('active');
+            
+            // Increment to the next question
+            currentQuestion++;
+            
+            // Check if there's a next question
+            if (currentQuestion < 16) {
+                // Show the next question
+                document.getElementById(`q${currentQuestion + 1}`).classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

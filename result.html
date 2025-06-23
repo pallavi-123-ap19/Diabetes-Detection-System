@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prediction Result</title>
+    <link rel="stylesheet" type="text/css" href="static/style.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1b1b32;
+            color: #333;
+            text-align: center;
+            padding: 50px;
+        }
+        .result-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 0 auto;
+            width: 80%;
+            max-width: 600px;
+        }
+        h2 {
+            color: #4CAF50;
+        }
+        .quote {
+            font-style: italic;
+            color: #777;
+            margin: 20px 0;
+        }
+        .emoji {
+            font-size: 30px;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        button, a {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            margin: 10px 0;
+            width: 200px;
+        }
+        button:hover, a:hover {
+            background-color: #45a049;
+        }
+        .healthy-habits {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+        }
+        h1 {
+            color: white;
+        }
+        /* Color coding for diabetes score */
+        .score-low { color: green; }
+        .score-moderate { color: orange; }
+        .score-high { color: #FF8C00; }
+        .score-very-high { color: red; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Prediction Result</h1>
+    </header>
+    <main>
+        <div class="result-container">
+            <h2>Your result:</h2>
+            <p class="quote">“Your health is an investment, not an expense.”</p>
+            <p class="emoji">{{ prediction }}</p>
+            <p>
+                Diabetes Score: 
+                <span 
+                    class="
+                        {% if diabetes_score < 30 %}score-low
+                        {% elif 30 <= diabetes_score < 60 %}score-moderate
+                        {% elif 60 <= diabetes_score < 85 %}score-high
+                        {% else %}score-very-high
+                        {% endif %}
+                    ">
+                    {{ diabetes_score }}%
+                </span>
+            </p>
+            <div class="button-container">
+                <button onclick="toggleHabits()">Show Healthy Habits</button>
+                <a href="/">Go back to the form</a>
+            </div>
+            <div class="healthy-habits" id="healthy-habits">
+                <h3>Healthy Habits to Avoid Diabetes:</h3>
+                <ul>
+                    <li>Maintain a healthy weight.</li>
+                    <li>Eat a balanced diet rich in fruits, vegetables, whole grains, and lean proteins.</li>
+                    <li>Stay physically active for at least 30 minutes most days of the week.</li>
+                    <li>Limit sugary foods and beverages.</li>
+                    <li>Stay hydrated with water instead of sugary drinks.</li>
+                    <li>Get regular health check-ups and screenings.</li>
+                    <li>Avoid smoking and excessive alcohol consumption.</li>
+                    <li>Manage stress through relaxation techniques, such as meditation or yoga.</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p style="color:white">Created by Goodfellas</p>
+    </footer>
+    <script>
+        function toggleHabits() {
+            const habits = document.getElementById('healthy-habits');
+            habits.style.display = habits.style.display === "none" ? "block" : "none";
+        }
+    </script>
+</body>
+</html>
